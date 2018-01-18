@@ -1,0 +1,23 @@
+version: '3'
+services:
+
+  db:
+    image: postgres:9.6
+
+  redis:
+    image: redis
+
+  api:
+    build:
+      context: ../
+      dockerfile: deployment/Dockerfile-testing
+    volumes:
+      - ../reports:/code/reports
+      - ../var/log:/var/log
+    depends_on:
+      - db
+    environment:
+      PGHOST: db
+      PGDATABAS: postgres
+      PGUSER: postgres
+      REDIS_HOST: redis

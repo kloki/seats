@@ -1,0 +1,16 @@
+FROM python:3.5
+ENV PYTHONUNBUFFERED 1
+
+RUN apt-get update && \
+    apt-get install vim postgresql-client -y && \
+    apt-get clean
+RUN pip install --upgrade pip
+
+RUN mkdir /code
+WORKDIR /code
+
+COPY requirements/production.txt .
+RUN pip install -r production.txt
+
+COPY ./seats_api/ /code/
+CMD ./manage shell

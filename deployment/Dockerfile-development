@@ -1,0 +1,15 @@
+FROM python:3.5
+ENV PYTHONUNBUFFERED 1
+RUN apt-get update && \
+    apt-get install postgresql-client -y && \
+    apt-get clean
+RUN pip install --upgrade pip
+
+RUN mkdir /code
+WORKDIR /code
+
+COPY requirements/develop.txt .
+RUN pip install -r develop.txt
+
+ADD ./carshare/ /code/
+CMD /code/wait-for-postgres.sh make runserver

@@ -1,0 +1,16 @@
+FROM python:3.5
+ENV PYTHONUNBUFFERED 1
+RUN apt-get update && \
+    apt-get install postgresql-client gettext -y && \
+    apt-get clean
+
+RUN pip install --upgrade pip
+
+WORKDIR /code
+RUN mkdir -p /code/media /code/static && \
+    chmod 0777 /code/media /code/static
+
+COPY requirements/develop.txt .
+RUN pip install -r develop.txt
+COPY ./seats_api/ /code/
+CMD /code/wait-for-postgres.sh python manage.py test --settings=seats_api.settings_test

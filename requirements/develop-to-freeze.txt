@@ -1,0 +1,8 @@
+flake8
+pep8
+pyflakes
+pylint
+Werkzeug
+ipython
+ipdb
+autopep8
