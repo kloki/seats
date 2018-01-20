@@ -34,10 +34,18 @@ python3 seats_api/manage.py migrate
 make runserver
 ```
 
+### test_data
+```
+python3 seats_api/manage.py loaddata example_event.json
+```
+This will create an event for testing. Will also create a super user with
+the credentials admin:pass1234
+
+
 ## test
 
-Will spin everything in an docker environment.
-Please make sure there are no conflicting docker images
+Will spin up everything in a docker environment.
+Please make sure there are no conflicting docker images running.
 
 ```
 make test
