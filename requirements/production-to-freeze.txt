@@ -1,5 +1,5 @@
 Django
 django-cors-headers
 djangorestframework
-drfdocs
+django-rest-swagger
 psycopg2

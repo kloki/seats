@@ -1,6 +1,11 @@
 # api seats
 
-please install docker and docker-compose before continuing.
+An swagger schema is available at http://127.0.0.1:8000/schema/ when
+running dev environment.
+
+# Setup
+
+please install docker and docker-compose before continuing. If you dont want to user docker make sure a postgres instance is running on 0.0.0.0:5432.
 
 ## development setup
 
@@ -11,18 +16,12 @@ virtualenv env -p python3
 source env/bin/activate
 pip install -r requirements/production.txt
 ```
-
-### start database
-
-```
-make dev_stack
-```
-
 ### Start services
 
 ```
 make dev_stack
 ```
+
 ### Migrate
 ```
 python3 seats_api/manage.py migrate
@@ -35,12 +34,12 @@ make runserver
 ```
 
 ### test_data
-```
-python3 seats_api/manage.py loaddata example_event.json
-```
 This will create an event for testing. Will also create a super user with
 the credentials admin:pass1234
 
+```
+python3 seats_api/manage.py loaddata example_event.json
+```
 
 ## test
 
