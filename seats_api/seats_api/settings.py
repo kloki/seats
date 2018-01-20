@@ -8,6 +8,7 @@ WSGI_APPLICATION = 'seats_api.wsgi.application'
 
 INSTALLED_APPS = [
     'venues',
+    'events',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

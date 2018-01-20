@@ -22,7 +22,7 @@ class Section(models.Model):
     added = models.DateTimeField(_('added'), auto_now_add=True)
     updated = models.DateTimeField(_('updated'), auto_now=True)
 
-    name = models.CharField(_('name'), max_length=64, unique=True)
+    name = models.CharField(_('name'), max_length=64)
     venue = models.ForeignKey(Venue, on_delete=models.CASCADE,
                               related_name="sections")
 
@@ -44,7 +44,7 @@ class Seat(models.Model):
     added = models.DateTimeField(_('added'), auto_now_add=True)
     updated = models.DateTimeField(_('updated'), auto_now=True)
 
-    name = models.CharField(_('name'), max_length=64, unique=True)
+    name = models.CharField(_('name'), max_length=64)
     section = models.ForeignKey(Section, on_delete=models.CASCADE,
                                 related_name="seats")
 
