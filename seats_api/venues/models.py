@@ -11,6 +11,10 @@ class Venue(models.Model):
 
     name = models.CharField(_('name'), max_length=64, unique=True)
 
+    @property
+    def layout(self):
+        return {section.name: section.layout for section in self.sections.all()}
+
     def __str__(self):
         return self.name
 
@@ -35,6 +39,22 @@ class Section(models.Model):
                 bool(self.seats.filter(row=row, column=column))):
             return False
         return True
+
+    def generate_seats(self):
+        for row in range(self.rows):
+            for column in range(self.columns):
+                Seat.objects.create(name='{}{}'.format(row, column),
+                                    section=self, row=row, column=column)
+
+    @property
+    def layout(self):
+        """ The layout of a sections is represented as a list for each row
+        A row is represented as a list, "_" means no seat, "S" means seats
+        """
+        matrix = [list("_" * self.columns) for _ in range(self.rows)]
+        for seat in self.seats.all():
+            matrix[seat.row][seat.column] = "S"
+        return matrix
 
     def __str__(self):
         return '{}: {}'.format(self.venue.name, self.name)
