@@ -14,3 +14,5 @@ services:
     image: seats/api
     ports:
     - "80:80"
+    env_file:
+    - env-file      

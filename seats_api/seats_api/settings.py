@@ -57,15 +57,6 @@ TEMPLATES = [
     },
 ]
 
-# Additional locations of static files
-STATICFILES_DIRS = (
-    os.path.join(
-        os.path.dirname(__file__),
-        '..',
-        'static_files',
-    ),
-)
-
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale')
 ]

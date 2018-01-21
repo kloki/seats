@@ -16,7 +16,7 @@ api_router.register(r'guests', GuestViewSet)
 api_router.register(r'blockedseats', BlockedSeatViewSet)
 
 
-schema_view = get_swagger_view(title='Pastebin API')
+schema_view = get_swagger_view(title='Seats API')
 
 urlpatterns = [
     url(r'^api/', include(api_router.urls)),

@@ -40,6 +40,6 @@ RUN pip3 install -r production.txt
 
 # add (the rest of) our code
 COPY ./seats_api /code/
-
+RUN python3 manage.py collectstatic --no-input
 EXPOSE 80
 CMD supervisord -n
