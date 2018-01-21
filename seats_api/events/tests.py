@@ -1,4 +1,7 @@
 from django.test import TestCase
+from django.urls import reverse
+
+from rest_framework.test import APIClient
 
 from venues.models import Seat
 from venues.tests import generate_test_venue
@@ -134,3 +137,67 @@ class TestGuestCreation(TestCase):
         self.assertTrue(any(x for x in seats if x.column == 0))
         self.assertTrue(any(x for x in seats if x.column == 1))
         self.assertTrue(any(x for x in seats if x.column == 2))
+
+
+class TestAddGroupAPI(TestCase):
+    def setUp(self):
+        self.event = generate_test_event()
+        self.sections = [section.pk for section in self.event.venue.sections.all()]
+        self.client = APIClient()
+        self.url = reverse('add-group')
+
+    def test_empty_body(self):
+        response = self.client.post(self.url, {}, format='json')
+        self.assertEqual(response.status_code, 400)
+
+    def test_correct(self):
+        body = {
+            "event": self.event.pk,
+            "guests": ["a", "b"],
+            "section": self.sections[0]
+        }
+        response = self.client.post(self.url, body, format='json')
+        self.assertEqual(response.status_code, 200)
+
+    def test_correct_no_section(self):
+        body = {
+            "event": self.event.pk,
+            "guests": ["a", "b"],
+        }
+        response = self.client.post(self.url, body, format='json')
+        # import pdb; pdb.set_trace()
+        self.assertEqual(response.status_code, 200)
+
+    def test_invalid_event(self):
+        body = {
+            "event": 199,
+            "guests": ["a", "b"],
+        }
+        response = self.client.post(self.url, body, format='json')
+        self.assertEqual(response.status_code, 400)
+
+    def test_invalid_section(self):
+        body = {
+            "event": self.event.pk,
+            "guests": ["a", "b"],
+            "section": 2222
+        }
+        response = self.client.post(self.url, body, format='json')
+        self.assertEqual(response.status_code, 400)
+
+    def test_invalid_guests(self):
+        body = {
+            "event": self.event.pk,
+            "guests": "string",
+        }
+        response = self.client.post(self.url, body, format='json')
+        self.assertEqual(response.status_code, 400)
+
+    def test_no_available(self):
+        body = {
+            "event": self.event.pk,
+            "guests": ["a", "b", "a", "b", "a", "b", "a", "b", "a", "b",
+                       "a", "b", "a", "b", "a", "b", "a", "b", "a", "b"],
+        }
+        response = self.client.post(self.url, body, format='json')
+        self.assertEqual(response.status_code, 400)

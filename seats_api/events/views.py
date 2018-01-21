@@ -68,7 +68,7 @@ class AddGroupView(APIView):
             return False, "", "", ""
         if section is not None:
             try:
-                self.event.venue.sections.get(pk=section)
+                event.venue.sections.get(pk=section)
             except Section.DoesNotExist:
                 return False, "", "", ""
         return True, event, guests, section

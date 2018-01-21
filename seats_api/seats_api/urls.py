@@ -20,7 +20,7 @@ api_router.register(r'blockedseats', BlockedSeatViewSet)
 schema_view = get_swagger_view(title='Seats API')
 
 urlpatterns = [
-    url(r'^api/add-group/', AddGroupView.as_view()),
+    url(r'^api/add-group/', AddGroupView.as_view(), name="add-group"),
     url(r'^api/', include(api_router.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^schema/', schema_view)
