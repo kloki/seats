@@ -3,6 +3,15 @@
 An swagger schema is available at http://127.0.0.1:8000/schema/ when
 running dev environment.
 
+## Adding a group
+The add group endpoint is a bit rushed so it doesn't play nice with swagger
+Here is how to use:
+
+```
+curl -H "Content-Type: application/json" -X POST -d '{"event":1,"guests":["name1","name2"]',"section":1} http://127.0.0.1:8000/api/add-group/
+```
+event and section are pk's and section is optional.
+
 # Setup
 
 please install docker and docker-compose before continuing. If you dont want to user docker make sure a postgres instance is running on 0.0.0.0:5432.

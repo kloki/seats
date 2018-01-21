@@ -109,7 +109,7 @@ class TestAssignLocation(TestCase):
         self.sections = [section.pk for section in self.event.venue.sections.all()]
 
     def test_seats_connected(self):
-        seats = self.event.assign_location([self.sections[0]], 5)
+        seats = self.event.assign_location(self.sections[0], 5)
         self.assertTrue(all(x for x in seats if x.row == 0))
         self.assertTrue(all(x for x in seats if x.section.pk == self.sections[0]))
         self.assertTrue(any(x for x in seats if x.column == 0))

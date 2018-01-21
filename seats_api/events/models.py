@@ -42,22 +42,24 @@ class Event(models.Model):
             return False
         return True
 
-    def add_group(self, guests, section_preferences=None):
+    def add_group(self, guests, section_preference=None):
         """ guests are a list of name. section_preferences is a list
         of section names that are valid sections
         """
-        seats = self.assign_location(section_preferences, len(guests))
+        seats = self.assign_location(section_preference, len(guests))
         group = uuid4()
         for guest in guests:
             Guest.objects.create(name=guest, seat=seats.pop(),
                                  event=self, group=group)
 
-    def assign_location(self, section_preferences, group_size):
+    def assign_location(self, section_preference, group_size):
         """ This will generate a list of seat locations to be used by a group.
         It will try a section a time, and first row to last row, left to right.
         """
-        if section_preferences is None:
+        if section_preference is None:
             section_preferences = self.layout.keys()
+        else:
+            section_preferences = [section_preference]
         location = self.parse_layout(section_preferences, group_size)
         seats = []
         for i in range(group_size):
