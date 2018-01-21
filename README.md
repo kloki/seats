@@ -1,7 +1,7 @@
-# api seats
+# Seats
 
-An swagger schema is available at http://127.0.0.1:8000/schema/ when
-running dev environment.
+A swagger schema is available at http://127.0.0.1:8000/schema/ when
+running dev environment for the rest api.
 
 ## Adding a group
 The add group endpoint is a bit rushed so it doesn't play nice with swagger
@@ -16,7 +16,7 @@ event and section are pk's and section is optional.
 
 please install docker and docker-compose before continuing. If you dont want to user docker make sure a postgres instance is running on 0.0.0.0:5432.
 
-## development setup
+## Development setup
 
 ### Setup virtualenv
 
@@ -42,31 +42,33 @@ python3 seats_api/manage.py migrate
 make runserver
 ```
 
-### test_data
-This will create an event for testing. Will also create a super user with
-the credentials admin:pass1234
+### Fixtures
 
 ```
 python3 seats_api/manage.py loaddata example_event.json
 ```
 
-## test
+This will create an event for testing. Will also create a super user with
+the credentials admin:pass1234
 
-Will spin up everything in a docker environment.
-Please make sure there are no conflicting docker images running.
+## Tests
 
 ```
 make test
 ```
 
-### Prod
+Will spin up everything in a docker environment.
+Please make sure there are no conflicting docker images running.
+
+
+### Productioen
 
 ```
 make build
 make start_prod
 ```
 
-### if needed run migrations
+### if needed run migrations and
 
 ```
 docker exec seats_api_1 python3 manage.py migrate
