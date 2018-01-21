@@ -13,7 +13,7 @@ class Venue(models.Model):
 
     @property
     def layout(self):
-        return {section.name: section.layout for section in self.sections.all()}
+        return {section.pk: section.layout for section in self.sections.all()}
 
     def __str__(self):
         return self.name
@@ -60,7 +60,14 @@ class Section(models.Model):
         return '{}: {}'.format(self.venue.name, self.name)
 
 
+class SeatManager(models.Manager):
+
+    def get_seat_by_location(self, section, row, column):
+        return self.get(section__pk=section, row=row, column=column)
+
+
 class Seat(models.Model):
+    objects = SeatManager()
     added = models.DateTimeField(_('added'), auto_now_add=True)
     updated = models.DateTimeField(_('updated'), auto_now=True)
 
@@ -78,3 +85,4 @@ class Seat(models.Model):
 
     def __str__(self):
         return '{} {}-{}'.format(self.section.name, self.row, self.column)
+
