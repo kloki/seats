@@ -7,6 +7,8 @@ WSGI_APPLICATION = 'seats_api.wsgi.application'
 # Application definition
 
 INSTALLED_APPS = [
+    'venues',
+    'events',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -16,10 +18,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'rest_framework_docs',
+    'rest_framework_swagger',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,15 +56,6 @@ TEMPLATES = [
         },
     },
 ]
-
-# Additional locations of static files
-STATICFILES_DIRS = (
-    os.path.join(
-        os.path.dirname(__file__),
-        '..',
-        'static_files',
-    ),
-)
 
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale')

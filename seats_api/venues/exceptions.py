@@ -1,0 +1,2 @@
+class PlaceUnavailableError(Exception):
+    pass
